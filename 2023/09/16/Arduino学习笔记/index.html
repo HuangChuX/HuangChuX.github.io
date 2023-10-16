@@ -1,0 +1,718 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>Arduino学习笔记 | null</title><meta name="author" content="被窝理想家"><meta name="copyright" content="被窝理想家"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta name="description" content="Arduino介绍 Arduino是一个能够用来感应和控制现实物理世界的一套工具。 它由一个基于单片机并且开放源码的硬件平台，和一套为Arduino板编写程序的开发环境组成 性能： Digital I&#x2F;O：数字输入&#x2F;输出端口 0 - 13 Analog I&#x2F;O：模拟输入&#x2F;输出端口 0 - 5 支持ICSP下载，支持TX&#x2F;RX。（ICSP：In Circuit Serial Programmable">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Arduino学习笔记">
+<meta property="og:url" content="https://huangchux.github.io/2023/09/16/Arduino%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+<meta property="og:site_name">
+<meta property="og:description" content="Arduino介绍 Arduino是一个能够用来感应和控制现实物理世界的一套工具。 它由一个基于单片机并且开放源码的硬件平台，和一套为Arduino板编写程序的开发环境组成 性能： Digital I&#x2F;O：数字输入&#x2F;输出端口 0 - 13 Analog I&#x2F;O：模拟输入&#x2F;输出端口 0 - 5 支持ICSP下载，支持TX&#x2F;RX。（ICSP：In Circuit Serial Programmable">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://huangchux.github.io/img/num6.webp">
+<meta property="article:published_time" content="2023-09-15T16:08:50.000Z">
+<meta property="article:modified_time" content="2023-09-17T13:27:50.965Z">
+<meta property="article:author" content="被窝理想家">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://huangchux.github.io/img/num6.webp"><link rel="shortcut icon" href="https://blog-1320729634.cos.ap-guangzhou.myqcloud.com/image/v2-50aa75835d2f370adadf52d12009f034_720w.jpg"><link rel="canonical" href="https://huangchux.github.io/2023/09/16/Arduino%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="/" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.staticfile.org/fancyapps-ui/4.0.31/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":300},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.staticfile.org/flickr-justified-gallery/2.1.2/fjGallery.min.js',
+      css: 'https://cdn.staticfile.org/flickr-justified-gallery/2.1.2/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Arduino学习笔记',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-09-17 21:27:50'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = url => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      link.onload = () => resolve()
+      link.onerror = () => reject()
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="preconnect" href="https://s1.hdslb.com/" /><link rel="stylesheet" href="//s1.hdslb.com/bfs/static/jinkela/long/font/regular.css" media="all" onload="this.media='all'" /><link rel="stylesheet" href="//s1.hdslb.com/bfs/static/jinkela/long/font/medium.css" media="all" onload="this.media='all'" /><link href="https://blog-1320729634.cos.ap-guangzhou.myqcloud.com/butterfly/css/all.min.css" rel="stylesheet"><link rel="stylesheet" href="/css/my.css" media="all" onload="this.media='all'"><link rel="stylesheet" href="/css/universe.css" ><link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/izitoast@1.4.0/dist/css/iziToast.min.css" media="all" onload="this.media='all'"><!-- hexo injector head_end start --><link rel="stylesheet" href="https://jsd.onmicrosoft.cn/gh/Zfour/Butterfly-double-row-display@1.00/cardlistpost.min.css"/>
+<style>#recent-posts > .recent-post-item >.recent-post-info > .article-meta-wrap > .tags:before {content:"\A";
+  white-space: pre;}#recent-posts > .recent-post-item >.recent-post-info > .article-meta-wrap > .tags > .article-meta__separator{display:none}</style>
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"></head><body><div id="loading-box"><style>css-doodle {--color: @p(#51eaea, #fffde1, #ff9d76, #FB3569);--rule: (:doodle {@grid: 30x1 / 18vmin;--deg: @p(-180deg, 180deg);}:container {perspective: 30vmin;}:after, :before {content: '';background: var(--color); @place-cell: @r(100%) @r(100%); @size: @r(6px); @shape: heart;} @place-cell: center; @size: 100%;box-shadow: @m2(0 0 50px var(--color));background: @m100(radial-gradient(var(--color) 50%, transparent 0)@r(-20%, 120%) @r(-20%, 100%) / 1px 1px no-repeat); will-change: transform, opacity; animation: scale-up 12s linear infinite; animation-delay: calc(-12s / @I * @i); @keyframes scale-up { 0%, 95.01%, 100% {transform: translateZ(0) rotate(0);opacity: 0;}10% {opacity: 1;}95% {transform: translateZ(35vmin) rotateZ(@var(--deg));}})}</style><css-doodle use="var(--rule)"></css-doodle><script async="async" src="https://cdn.bootcdn.net/ajax/libs/css-doodle/0.32.2/css-doodle.min.js"></script></div><script>const preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',()=> { preloader.endLoading() })
+
+if (true) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://blog-1320729634.cos.ap-guangzhou.myqcloud.com/image/v2-50aa75835d2f370adadf52d12009f034_720w.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">7</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">5</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/comments/"><i class="fa-fw fas fa-comment"></i><span> 留言</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a href="/"><img class="site-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://image-1309791158.cos.ap-guangzhou.myqcloud.com/%E5%85%B6%E4%BB%96/light.png"/></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/comments/"><i class="fa-fw fas fa-comment"></i><span> 留言</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">Arduino学习笔记</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-09-15T16:08:50.000Z" title="发表于 2023-09-16 00:08:50">2023-09-16</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-09-17T13:27:50.965Z" title="更新于 2023-09-17 21:27:50">2023-09-17</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Arduino%E7%B3%BB%E5%88%97/">Arduino系列</a></span></div><div class="meta-secondline"></div></div></div><article class="post-content" id="article-container"><h2 id="Arduino介绍">Arduino介绍</h2>
+<p>Arduino是一个能够用来<code>感应和控制</code>现实物理世界的一套工具。 它由一个基于单片机并且<code>开放源码</code>的硬件平台，和一套为Arduino板编写程序的开发环境组成</p>
+<p><strong>性能</strong>：</p>
+<p><strong>Digital I/O</strong>：<code>数字</code>输入/输出端口 <code>0 - 13</code></p>
+<p><strong>Analog I/O</strong>：<code>模拟</code>输入/输出端口 <code>0 - 5</code></p>
+<p><strong>支持ICSP下载，支持TX/RX</strong>。（ICSP：In Circuit Serial Programmable <code>在线串行编程</code>）</p>
+<p><strong>输入电压</strong>：USB接口供电或者5V-12V外部电源供电</p>
+<p><strong>输出电压</strong>：支持 <code>3.3V</code> 及 <code>5V</code> DC输出</p>
+<p><strong>处理器</strong>：使用Atmel Atmega168 328处理器，因其支持者众多，已有公司开发出来32位的MCU平台支持Arduino</p>
+<p>我们所用的Arduino控制板是<code>Arduino Uno</code>，如下图：</p>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://blog-1320729634.cos.ap-guangzhou.myqcloud.com/image/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202023-09-16%20233942.webp" style="zoom:50%;" />
+<h2 id="Arduino基础知识">Arduino基础知识</h2>
+<h3 id="数据类型"><strong>数据类型</strong></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"><strong>名称</strong></th>
+<th style="text-align:center"><strong>描述</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">char,unsigned char</td>
+<td style="text-align:center">字符型，无符号字符型</td>
+</tr>
+<tr>
+<td style="text-align:center">int,unsigned int</td>
+<td style="text-align:center">整型，无符号整型</td>
+</tr>
+<tr>
+<td style="text-align:center">long,unsigned long</td>
+<td style="text-align:center">长整型，无符号长整型</td>
+</tr>
+<tr>
+<td style="text-align:center">boolean</td>
+<td style="text-align:center">布尔类型(只有真/假)</td>
+</tr>
+<tr>
+<td style="text-align:center">byte</td>
+<td style="text-align:center">字节类型(特有的跟unsigned char功能一样)</td>
+</tr>
+<tr>
+<td style="text-align:center">float</td>
+<td style="text-align:center">单精度浮点型</td>
+</tr>
+<tr>
+<td style="text-align:center">string</td>
+<td style="text-align:center">字符串类型</td>
+</tr>
+<tr>
+<td style="text-align:center">String</td>
+<td style="text-align:center">对象</td>
+</tr>
+<tr>
+<td style="text-align:center">array</td>
+<td style="text-align:center">排列</td>
+</tr>
+<tr>
+<td style="text-align:center">word</td>
+<td style="text-align:center">字</td>
+</tr>
+</tbody>
+</table>
+<p><strong>数据类型转换：</strong></p>
+<p>char()、byte()、int()、long()、float()</p>
+<h3 id="常量"><strong>常量</strong></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"><strong>名称</strong></th>
+<th style="text-align:center"><strong>描述</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">HIGH</td>
+<td style="text-align:center">引脚高电平1（<code>数字IO口的电平</code>）</td>
+</tr>
+<tr>
+<td style="text-align:center">LOW</td>
+<td style="text-align:center">引脚低电平0（<code>数字IO口的电平</code>）</td>
+</tr>
+<tr>
+<td style="text-align:center">INPUT</td>
+<td style="text-align:center">输入（<code>数字IO口的方向</code>）</td>
+</tr>
+<tr>
+<td style="text-align:center">OUTPUT</td>
+<td style="text-align:center">输出（<code>数字IO口的方向</code>）</td>
+</tr>
+<tr>
+<td style="text-align:center">true</td>
+<td style="text-align:center">真</td>
+</tr>
+<tr>
+<td style="text-align:center">false</td>
+<td style="text-align:center">假</td>
+</tr>
+</tbody>
+</table>
+<h3 id="程序结构">程序结构</h3>
+<p>Arduino程序可以分为三个主要部分： <code>结构、值（变量和常量）和函数</code></p>
+<p>Arduino程序不像C语言那样使用 <code>main()</code> 当做函数入口，但是程序中编写的 <code>setup</code> 和 <code>loop</code> 函数，都在main函数中调用了 <code>loop</code> 的循环执行，是通过for循环实现的，且每次loop结束后，都会进行串口事件判断，也正是因为这种设计， <code>串口事件不能实时响应</code></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">setup</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> val;</span><br><span class="line">    <span class="type">int</span> ledPin = <span class="number">13</span>;	<span class="comment">//声明变量及接口名称的语句</span></span><br><span class="line">    <span class="comment">//初始化函数，在程序开始时使用，可以初始化变量、接口（引脚）模式、调用库函数等（例如：pinMode(ledPin,OUTUPT);）</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*有的Arduino程序没有loop程序这时候需要到main.cpp把loop注释掉或者新建一个loop函数但是里面什么都不放以便main函数调用否则会编译错误*/</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">loop</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//循环执行体，无限循环</span></span><br><span class="line">    <span class="comment">//主函数，在setup()初始化之后，loop() 中的程序语句循环地被执行，使用它来运转Arduino</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Arduino基本函数">Arduino基本函数</h3>
+<h4 id="数字-I-O接口函数">数字 I/O接口函数</h4>
+<p>数字引脚pin为0~13</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"><strong>函数</strong></th>
+<th style="text-align:center"><strong>参数</strong></th>
+<th style="text-align:center"><strong>描述</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">pinMode</td>
+<td style="text-align:center">(pin, mode)</td>
+<td style="text-align:center">定义<code>数字IO口是输入或输出</code>模式，mode表示为 <code>INPUT（输入）</code> 或 <code>OUTPUT（输出）</code></td>
+</tr>
+<tr>
+<td style="text-align:center">digitalWrite</td>
+<td style="text-align:center">(pin, value)</td>
+<td style="text-align:center">定义<code>数字IO口输出电平</code>，value表示为 <code>HIGH（高电平）</code>或<code> LOW（低电平）</code></td>
+</tr>
+<tr>
+<td style="text-align:center">digitalRead</td>
+<td style="text-align:center">(pin)</td>
+<td style="text-align:center"><code>读取数字IO口输入电平</code>，value表示为 <code>HIGH（高电平）</code> 或 <code>LOW（低电平）</code></td>
+</tr>
+</tbody>
+</table>
+<h4 id="模拟-I-O接口函数">模拟 I/O接口函数</h4>
+<p>模拟引脚 pin 为<code>A0~A5</code>，Arduino UNO用于<code>PWM</code>的数字引脚 pin 为<code>3、5、6、9、10、11</code></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"><strong>函数</strong></th>
+<th style="text-align:center"><strong>参数</strong></th>
+<th style="text-align:center"><strong>描述</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">analogRead</td>
+<td style="text-align:center">(pin)</td>
+<td style="text-align:center"><code>读取模拟IO口输入信号</code>，pin表示为<code>A0~A5</code>（Arduino nano为A0~A7）</td>
+</tr>
+<tr>
+<td style="text-align:center">analogWrite</td>
+<td style="text-align:center">(pin, value)</td>
+<td style="text-align:center">模数IO口输出用户写的模拟量（PWM波），Arduino上标示 ~ 的数字IO口可使用该函数，value表示为0~255</td>
+</tr>
+</tbody>
+</table>
+<p>用于PWM脉宽调制时，对ATmega168芯片的Mini或BT或UNO Arduino，pin可用接口3、5、6、9、10、11；对ATmega8芯片的USB和serial Arduino，pin可用接口9、10、11</p>
+<h4 id="扩展-I-O接口函数">扩展 I/O接口函数</h4>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"><strong>函数</strong></th>
+<th style="text-align:center"><strong>参数</strong></th>
+<th style="text-align:center"><strong>描述</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">shiftOut</td>
+<td style="text-align:center">(dataPin, clockPin, bitorder, value)</td>
+<td style="text-align:center"><code>SPI外部IO扩展函数</code>，<code>dataPin</code>为<code>数据口</code>，<code>clockPin</code>为<code>时钟口</code>，<code>bitOrder</code>为<code>数据传输方向</code>（MSBFIRST高位在前，LSBFIRST低位在前），<code>value</code>表示所要<code>传送的数据（0～255）</code></td>
+</tr>
+<tr>
+<td style="text-align:center">unsigned long pulseIn</td>
+<td style="text-align:center">(pin, value)</td>
+<td style="text-align:center"><code>脉冲长度记录函数</code>，返回时间参数（us），<code>pin</code>表示为<code>0～13</code>，<code>value</code>为<code>HIGH</code>或<code>LOW</code></td>
+</tr>
+</tbody>
+</table>
+<p>shiftOut (dataPin, clockPin, bitOrder, value)	SPI外部IO扩展函数，通常使用带SPI接口的<code>74HC595</code>做<code>8个IO扩展</code>，另外还需要<code>一个IO口</code>做<code>74HC595的使能控制</code></p>
+<p>unsigned long pulseIn (pin, value)	脉冲长度记录函数，比如value为HIGH，那么当pin输入为高电平时，开始计时，当pin输入为低电平时，停止计时，然后返回该时间</p>
+<h4 id="时间函数">时间函数</h4>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"><strong>函数</strong></th>
+<th style="text-align:center"><strong>参数</strong></th>
+<th style="text-align:center"><strong>描述</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">unsigned long millis</td>
+<td style="text-align:center">无</td>
+<td style="text-align:center">返回时间函数（单位ms），该函数是指当程序运行就开始计时并返回记录的参数</td>
+</tr>
+<tr>
+<td style="text-align:center">delay</td>
+<td style="text-align:center">(ms)</td>
+<td style="text-align:center">延时函数（单位ms）</td>
+</tr>
+<tr>
+<td style="text-align:center">delayMicroseconds</td>
+<td style="text-align:center">(us)</td>
+<td style="text-align:center">延时函数（单位us）</td>
+</tr>
+</tbody>
+</table>
+<h4 id="数学函数">数学函数</h4>
+<table>
+<thead>
+<tr>
+<th><strong>函数</strong></th>
+<th style="text-align:center"><strong>参数</strong></th>
+<th style="text-align:center"><strong>描述</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>min</td>
+<td style="text-align:center">(x, y)</td>
+<td style="text-align:center">求最小值</td>
+</tr>
+<tr>
+<td>max</td>
+<td style="text-align:center">(x, y)</td>
+<td style="text-align:center">求最大值</td>
+</tr>
+<tr>
+<td>abs</td>
+<td style="text-align:center">(x)</td>
+<td style="text-align:center">求绝对值</td>
+</tr>
+<tr>
+<td>constrain</td>
+<td style="text-align:center">(x, a, b)</td>
+<td style="text-align:center">约束函数，x须在下限a与上限b之间才能返回</td>
+</tr>
+<tr>
+<td>map</td>
+<td style="text-align:center">(value, fromLow, fromHigh, toLow, toHigh)</td>
+<td style="text-align:center">约束函数，value 须在 fromLow 与 toLow 之间和 fromHigh 与 toHigh 之间</td>
+</tr>
+<tr>
+<td>pow</td>
+<td style="text-align:center">(base, exponent)</td>
+<td style="text-align:center">开方函数，base的 exponent 次方</td>
+</tr>
+<tr>
+<td>sq</td>
+<td style="text-align:center">(x)</td>
+<td style="text-align:center">平方函数</td>
+</tr>
+<tr>
+<td>sqrt</td>
+<td style="text-align:center">(x)</td>
+<td style="text-align:center">平方根函数</td>
+</tr>
+</tbody>
+</table>
+<h4 id="随机数函数">随机数函数</h4>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"><strong>函数</strong></th>
+<th style="text-align:center"><strong>参数</strong></th>
+<th style="text-align:center"><strong>描述</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">randomSeed</td>
+<td style="text-align:center">(seed)</td>
+<td style="text-align:center">随机数端口定义函数，seed表示读模拟口analogRead(pin)函数</td>
+</tr>
+<tr>
+<td style="text-align:center">long random</td>
+<td style="text-align:center">(max)</td>
+<td style="text-align:center">随机数函数，返回数据大于等于0，小于max</td>
+</tr>
+<tr>
+<td style="text-align:center">long random</td>
+<td style="text-align:center">(min, max)</td>
+<td style="text-align:center">随机数函数，返回数据大于等于min，小于max</td>
+</tr>
+</tbody>
+</table>
+<h4 id="外部中断函数">外部中断函数</h4>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"><strong>函数</strong></th>
+<th style="text-align:center"><strong>参数</strong></th>
+<th style="text-align:center"><strong>描述</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">attachInterrupt</td>
+<td style="text-align:center">(interrupt, , mode)</td>
+<td style="text-align:center">外部中断只能用到数字IO口2和3，<code>interrupt</code>表示<code>中断口初始0或1</code>，表示一个功能函数，<code>mode</code>：<code>LOW低电平中断</code>，CHANGE有变化就中断，RISING上升沿中断，FALLING 下降沿中断</td>
+</tr>
+<tr>
+<td style="text-align:center">detachInterrupt</td>
+<td style="text-align:center">(interrupt)</td>
+<td style="text-align:center">中断开关，interrupt=1 开，interrupt=0 关</td>
+</tr>
+</tbody>
+</table>
+<h4 id="中断使能函数">中断使能函数</h4>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"><strong>函数</strong></th>
+<th style="text-align:center"><strong>描述</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">interrupts()</td>
+<td style="text-align:center">使能中断</td>
+</tr>
+<tr>
+<td style="text-align:center">noInterrupts()</td>
+<td style="text-align:center">禁止中断</td>
+</tr>
+</tbody>
+</table>
+<h4 id="串口收发函数">串口收发函数</h4>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"><strong>函数</strong></th>
+<th style="text-align:center"><strong>参数</strong></th>
+<th style="text-align:center"><strong>描述</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Serial.begin</td>
+<td style="text-align:center">(speed)</td>
+<td style="text-align:center">设置串口波特率，用于setup()内。speed表示波特率（串口每秒传输数据的速率）</td>
+</tr>
+<tr>
+<td style="text-align:center">Serial.read()</td>
+<td style="text-align:center">无</td>
+<td style="text-align:center">读取串口输入，返回收到的参数</td>
+</tr>
+<tr>
+<td style="text-align:center">Serial.print</td>
+<td style="text-align:center">(data,数据进制)</td>
+<td style="text-align:center">串口输出数据，默认Serial.print(data)，即Serial.print(data，DEC)，DEC表示十进制</td>
+</tr>
+<tr>
+<td style="text-align:center">Serial.println</td>
+<td style="text-align:center">(data,数据进制)</td>
+<td style="text-align:center">串口输出数据并带回车换行符</td>
+</tr>
+<tr>
+<td style="text-align:center">Serial.available()</td>
+<td style="text-align:center">无</td>
+<td style="text-align:center">判断串口缓冲器buffer状态</td>
+</tr>
+<tr>
+<td style="text-align:center">Serial.flush()</td>
+<td style="text-align:center">无</td>
+<td style="text-align:center">清空串口缓冲器buffer</td>
+</tr>
+</tbody>
+</table>
+<h3 id="官方库文件">官方库文件</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">名称</th>
+<th style="text-align:center"><strong>描述</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">EEPROM</td>
+<td style="text-align:center">EEPROM读写程序库</td>
+</tr>
+<tr>
+<td style="text-align:center">Ethernet</td>
+<td style="text-align:center">以太网控制器程序库</td>
+</tr>
+<tr>
+<td style="text-align:center">LiquidCrystal</td>
+<td style="text-align:center">LCD控制程序库</td>
+</tr>
+<tr>
+<td style="text-align:center">Servo</td>
+<td style="text-align:center">舵机控制程序库</td>
+</tr>
+<tr>
+<td style="text-align:center">SoftwareSerial</td>
+<td style="text-align:center">任何数字IO口模拟串口程序库</td>
+</tr>
+<tr>
+<td style="text-align:center">Stepper</td>
+<td style="text-align:center">步进电机控制程序库</td>
+</tr>
+<tr>
+<td style="text-align:center">Wire</td>
+<td style="text-align:center">TWI/I2C总线程序库</td>
+</tr>
+<tr>
+<td style="text-align:center">Matrix</td>
+<td style="text-align:center">LED矩阵控制程序库</td>
+</tr>
+<tr>
+<td style="text-align:center">Sprite</td>
+<td style="text-align:center">LED矩阵图象处理控制程序库</td>
+</tr>
+</tbody>
+</table>
+<h2 id="面包板的使用">面包板的使用</h2>
+<p>面包板是实验室中用于搭接电路的重要工具，下面就面包板的结构和使用方法的介绍</p>
+<h3 id="面包板外观">面包板外观</h3>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://blog-1320729634.cos.ap-guangzhou.myqcloud.com/image/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202023-09-16%20230959.webp" style="zoom: 40%;" />
+<p>常见的面包板最小单元面包板分上、中、下三部分， 上面和下面部分一般是由一行或两行的插孔构成的<code>窄条</code>，中间部分是由中间一条<code>隔离凹槽</code>和上下各 5 行的插孔构成的<code>宽条</code></p>
+<p>窄条上下两行之间电气不连通。每 <code>5 个插孔为一组</code>，<code>一整条之间都互相连通，但是上下之间不连通</code></p>
+<p>中间部分<code>宽条</code>是由中间一条<code>隔离凹槽</code>和<code>上下各 5 行的插孔</code>构成。在<code>同一列中的 5 个 插孔是互相连通</code>的，<code>列和列之间以及凹槽上下部分则是不连通</code>的。外观及结构如图：</p>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://blog-1320729634.cos.ap-guangzhou.myqcloud.com/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20230916232513.webp" style="zoom: 38%;" />
+<h2 id="LED闪烁实验">LED闪烁实验</h2>
+<p>本次实验此次利用Arduino开发板的I/O口和外接直插LED灯来完成控制LED灯闪烁</p>
+<h3 id="LED灯实验原理图"><strong>LED灯实验原理图</strong></h3>
+<p>Arduino开发板数字接口<code>10</code>与红色发光二极管<code>LED</code>相连，为避免电流过大会烧毁LED，此处<code>串联</code>一个220Ω的<code>限流电阻</code></p>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://blog-1320729634.cos.ap-guangzhou.myqcloud.com/image/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202023-09-16%20224738.png" style="zoom: 50%;" />
+<h3 id="接线实物图"><strong>接线实物图</strong></h3>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://blog-1320729634.cos.ap-guangzhou.myqcloud.com/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20230916224944.webp" style="zoom:50%;" />
+<p>这里<code>右边的黄线</code>（接在10号引脚）与<code>LED灯的正极</code>接在面包板的<code>同一列</code>上，表示arduino开发板与LED的正极相连，然后<code>LED的负极</code>与<code>电阻</code>连接在<code>同一列</code>上，电阻的另外一端与<code>左边的黄线</code>连接在同一列，然后黄线与开发板的GND相连，表示<code>LED灯和电阻串联</code>在一起，这样子电路就连接好啦!</p>
+<p>电路连接好了，接下来就是写LED闪烁的程序了</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> ledPin = <span class="number">13</span>;                    <span class="comment">//定义数字接口10</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">setup</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    pinMode(ledPin, OUTPUT);        <span class="comment">//定义LED所连数字接口10为输出</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="type">void</span> <span class="title function_">loop</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    digitalWrite(ledPin, HIGH);     <span class="comment">//点亮LED灯（高电平点亮）</span></span><br><span class="line">    delay(<span class="number">1000</span>);                    <span class="comment">//延时1s（1000ms）</span></span><br><span class="line">    digitalWrite(ledPin, LOW);      <span class="comment">//熄灭LED灯（低电平熄灭）</span></span><br><span class="line">    delay(<span class="number">1000</span>);                    <span class="comment">//延时1s（1000ms）</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="光敏电阻实验">光敏电阻实验</h2>
+<p>光敏电阻器，也称光感电阻，是利用半导体的光电效应制成的一种电阻值随入射光的强弱而改变的电阻器；<code>入射光强，电阻减小，入射光弱，电阻增大</code></p>
+<h3 id="光敏电阻调节蜂鸣器">光敏电阻调节蜂鸣器</h3>
+<h4 id="接线原理图">接线原理图</h4>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://blog-1320729634.cos.ap-guangzhou.myqcloud.com/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20230917143413.webp" style="zoom:50%;" />
+<p>这里因为找不到蜂鸣器元器件，所以就改成了LED，在实际连线只需要把LED替换成蜂鸣器就好</p>
+<p>Arduino Uno开发板<code>数字接口6</code>连接<code>光敏电阻一端</code>，光敏电阻<code>另一端连接蜂鸣器正极（+）</code>，<code>蜂鸣器负极（-）</code>连接Arduino Uno<code>开发板</code>的<code>公共地端GND</code></p>
+<h4 id="实验程序">实验程序</h4>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">setup</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    pinMode(<span class="number">6</span>, OUTPUT);</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">void</span> <span class="title function_">loop</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">while</span>(<span class="number">1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="type">char</span> i, j;</span><br><span class="line">        <span class="keyword">while</span>(<span class="number">1</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">for</span>(i = <span class="number">0</span>; i &lt; <span class="number">80</span>; i++)        <span class="comment">//输出一定频率的声音</span></span><br><span class="line">            &#123;</span><br><span class="line">                digitalWrite(<span class="number">6</span>, HIGH);     <span class="comment">//高低电平不断交替，使蜂鸣器发出声音</span></span><br><span class="line">                delay(<span class="number">1</span>);</span><br><span class="line">                digitalWrite(<span class="number">6</span>, LOW);</span><br><span class="line">                delay(<span class="number">1</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">for</span>(i = <span class="number">0</span>; i &lt; <span class="number">100</span>; i++)        <span class="comment">//输出另一频率的声音</span></span><br><span class="line">            &#123;</span><br><span class="line">                digitalWrite(<span class="number">6</span>, HIGH);</span><br><span class="line">                delay(<span class="number">2</span>);</span><br><span class="line">                digitalWrite(<span class="number">6</span>, LOW);</span><br><span class="line">                delay(<span class="number">2</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>将程序下载到Arduino开发板之后，可以用手电筒等发光物体照射或用手间歇地阻挡光敏电阻，可以听到<code>有光照时蜂鸣器声音大，没有光时蜂鸣器声音小</code></p>
+<h3 id="光敏电阻调节LED灯">光敏电阻调节LED灯</h3>
+<h4 id="接线原理图-2">接线原理图</h4>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://blog-1320729634.cos.ap-guangzhou.myqcloud.com/image/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202023-09-17%20114926.webp" style="zoom: 33%;" />
+<p>这里先看<code>绿色</code>那根线，一端连接开发板的<code>A0</code>管脚，一端与<code>光敏电阻</code>连接在<code>同一列</code>，光敏电阻的<code>另外一端</code>与<code>黑色</code>那根线连接在<code>同一列</code>，<code>黑色线</code>的<code>另外一端</code>连接在<code>面包板的正极</code>，再看<code>另外一根黑色线</code>，一端连接在<code>面包板的正极</code>，一端与<code>开发板的GND</code>相连，这样子光敏电阻就连接好啦，如图所示：<code>看蓝色那根线</code></p>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://blog-1320729634.cos.ap-guangzhou.myqcloud.com/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20230917122831.webp" style="zoom: 33%;" />
+<p>再来看<code>绿色</code>那根线也与<code>电阻</code>连接在<code>同一列</code>上，<code>电阻</code>的<code>另外一端</code>连接在<code>面包板的负极</code>，同样看<code>左边那根红色</code>的线，一端连接在<code>面包板的负极</code>，一端连接在<code>开发板的5V</code>管脚上，这样子右边那个电阻就连接好啦，如图所示：<code>看蓝色那根线</code></p>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://blog-1320729634.cos.ap-guangzhou.myqcloud.com/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20230917123240.webp" style="zoom: 33%;" />
+<p>最后看<code>黄色</code>那根线，一端连接在<code>开发板的11号管脚</code>上，一端与<code>LED灯的正极</code>连接在<code>同一列</code>，<code>LED的负极</code>与<code>电阻</code>的一端连接在<code>同一列</code>，表示<code>LED与电阻串联</code>，<code>电阻</code>的另外一端连接在<code>面包板的正极</code>，然后再看<code>左边黑色那根线</code>，一端连接在<code>面包板的正极</code>，一端连接在<code>开发板的GND管脚</code>上，这样子LED与电阻就连接好啦，如图所示：<code>看蓝色那根线</code></p>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://blog-1320729634.cos.ap-guangzhou.myqcloud.com/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20230917123521.webp" style="zoom: 33%;" />
+<h4 id="实验程序-2">实验程序</h4>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> potpin = <span class="number">0</span>;                 <span class="comment">//定义模拟接口A0连接光敏电阻</span></span><br><span class="line"><span class="type">int</span> ledpin = <span class="number">11</span>;                <span class="comment">//定义数字接口11连接LED小灯，输出PWM值调节LED的亮度</span></span><br><span class="line"><span class="type">int</span> val = <span class="number">0</span>;                    <span class="comment">//定义变量val</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">setup</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    pinMode(ledpin, OUTPUT);    <span class="comment">//定义Arduino数字接口11为输出</span></span><br><span class="line">    Serial.begin(<span class="number">9600</span>);         <span class="comment">//设置Arduino开发板串口波特率为9600</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="type">void</span> <span class="title function_">loop</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    val = analogRead(potpin);   <span class="comment">//读取传感器的模拟值并赋值给val变量</span></span><br><span class="line">    Serial.println(val);        <span class="comment">//通过串口显示val变量的数值并换行</span></span><br><span class="line">    analogWrite(ledpin, val);   <span class="comment">//打开LED，设置亮度值（PWM输出最大值为255）</span></span><br><span class="line">    delay(<span class="number">10</span>);                  <span class="comment">//延时10ms</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</article><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="/img/num6.webp" data-sites="wechat,qq"></div><link rel="stylesheet" href="https://lib.baomitu.com/social-share.js/1.0.16/css/share.min.css" media="print" onload="this.media='all'"><script src="https://lib.baomitu.com/social-share.js/1.0.16/js/social-share.min.js" defer></script></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Arduino%E4%BB%8B%E7%BB%8D"><span class="toc-number">1.</span> <span class="toc-text">Arduino介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Arduino%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86"><span class="toc-number">2.</span> <span class="toc-text">Arduino基础知识</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="toc-number">2.1.</span> <span class="toc-text">数据类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E9%87%8F"><span class="toc-number">2.2.</span> <span class="toc-text">常量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A8%8B%E5%BA%8F%E7%BB%93%E6%9E%84"><span class="toc-number">2.3.</span> <span class="toc-text">程序结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Arduino%E5%9F%BA%E6%9C%AC%E5%87%BD%E6%95%B0"><span class="toc-number">2.4.</span> <span class="toc-text">Arduino基本函数</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%95%B0%E5%AD%97-I-O%E6%8E%A5%E5%8F%A3%E5%87%BD%E6%95%B0"><span class="toc-number">2.4.1.</span> <span class="toc-text">数字 I&#x2F;O接口函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A8%A1%E6%8B%9F-I-O%E6%8E%A5%E5%8F%A3%E5%87%BD%E6%95%B0"><span class="toc-number">2.4.2.</span> <span class="toc-text">模拟 I&#x2F;O接口函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%89%A9%E5%B1%95-I-O%E6%8E%A5%E5%8F%A3%E5%87%BD%E6%95%B0"><span class="toc-number">2.4.3.</span> <span class="toc-text">扩展 I&#x2F;O接口函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%97%B6%E9%97%B4%E5%87%BD%E6%95%B0"><span class="toc-number">2.4.4.</span> <span class="toc-text">时间函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%95%B0%E5%AD%A6%E5%87%BD%E6%95%B0"><span class="toc-number">2.4.5.</span> <span class="toc-text">数学函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%9A%8F%E6%9C%BA%E6%95%B0%E5%87%BD%E6%95%B0"><span class="toc-number">2.4.6.</span> <span class="toc-text">随机数函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A4%96%E9%83%A8%E4%B8%AD%E6%96%AD%E5%87%BD%E6%95%B0"><span class="toc-number">2.4.7.</span> <span class="toc-text">外部中断函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%AD%E6%96%AD%E4%BD%BF%E8%83%BD%E5%87%BD%E6%95%B0"><span class="toc-number">2.4.8.</span> <span class="toc-text">中断使能函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%B2%E5%8F%A3%E6%94%B6%E5%8F%91%E5%87%BD%E6%95%B0"><span class="toc-number">2.4.9.</span> <span class="toc-text">串口收发函数</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%98%E6%96%B9%E5%BA%93%E6%96%87%E4%BB%B6"><span class="toc-number">2.5.</span> <span class="toc-text">官方库文件</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9D%A2%E5%8C%85%E6%9D%BF%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="toc-number">3.</span> <span class="toc-text">面包板的使用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9D%A2%E5%8C%85%E6%9D%BF%E5%A4%96%E8%A7%82"><span class="toc-number">3.1.</span> <span class="toc-text">面包板外观</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#LED%E9%97%AA%E7%83%81%E5%AE%9E%E9%AA%8C"><span class="toc-number">4.</span> <span class="toc-text">LED闪烁实验</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#LED%E7%81%AF%E5%AE%9E%E9%AA%8C%E5%8E%9F%E7%90%86%E5%9B%BE"><span class="toc-number">4.1.</span> <span class="toc-text">LED灯实验原理图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8E%A5%E7%BA%BF%E5%AE%9E%E7%89%A9%E5%9B%BE"><span class="toc-number">4.2.</span> <span class="toc-text">接线实物图</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%89%E6%95%8F%E7%94%B5%E9%98%BB%E5%AE%9E%E9%AA%8C"><span class="toc-number">5.</span> <span class="toc-text">光敏电阻实验</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%89%E6%95%8F%E7%94%B5%E9%98%BB%E8%B0%83%E8%8A%82%E8%9C%82%E9%B8%A3%E5%99%A8"><span class="toc-number">5.1.</span> <span class="toc-text">光敏电阻调节蜂鸣器</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8E%A5%E7%BA%BF%E5%8E%9F%E7%90%86%E5%9B%BE"><span class="toc-number">5.1.1.</span> <span class="toc-text">接线原理图</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C%E7%A8%8B%E5%BA%8F"><span class="toc-number">5.1.2.</span> <span class="toc-text">实验程序</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%89%E6%95%8F%E7%94%B5%E9%98%BB%E8%B0%83%E8%8A%82LED%E7%81%AF"><span class="toc-number">5.2.</span> <span class="toc-text">光敏电阻调节LED灯</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8E%A5%E7%BA%BF%E5%8E%9F%E7%90%86%E5%9B%BE-2"><span class="toc-number">5.2.1.</span> <span class="toc-text">接线原理图</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C%E7%A8%8B%E5%BA%8F-2"><span class="toc-number">5.2.2.</span> <span class="toc-text">实验程序</span></a></li></ol></li></ol></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2023  <i id="heartbeat" class="fa fas fa-heartbeat"></i> 被窝理想家</div><div class="footer_custom_text"><div><a style="margin-inline:5px" target="_blank" href="https://hexo.io/"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://image-1309791158.cos.ap-guangzhou.myqcloud.com/butterfly/blog_other/Frame-Hexo-blue.svg" title="博客框架为 Hexo" alt="HEXO"></a><a style="margin-inline:5px" target="_blank" href="https://butterfly.js.org/"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://image-1309791158.cos.ap-guangzhou.myqcloud.com/butterfly/blog_other/Theme-Butterfly-6513df.svg" title="主题采用 Butterfly" alt="Butterfly"></a><a style="margin-inline:5px" target="_blank" href="https://vercel.com/"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://image-1309791158.cos.ap-guangzhou.myqcloud.com/其他/Hosted-Vercel-brightgreen.svg" title="本站采用多线部署，次线路托管于Vercel" alt="HEXO"></a></div></div><div id="running-time" style="color: #5c5c5c;"><script>setInterval(()=>{let create_time=Math.round(new Date('9/6/2023 08:00:00').getTime()/1000);let timestamp=Math.round((new Date().getTime()+8*60*60*1000)/1000);let second=timestamp-create_time;let time=new Array(0,0,0,0,0);if(second>=365*24*3600){time[0]=parseInt(second/(365*24*3600));second%=365*24*3600;}if(second>=24*3600){time[1]=parseInt(second/(24*3600));second%=24*3600;}if(second>=3600){time[2]=parseInt(second/3600);second%=3600;}if(second>=60){time[3]=parseInt(second/60);second%=60;}if(second>0){time[4]=second;}currentTimeHtml='本站已苟活了 '+time[0]+' 年 '+time[1]+' 天 '+time[2]+' 时 '+time[3]+' 分 '+time[4]+' 秒';document.getElementById("running-time").innerHTML=currentTimeHtml;},1000);</script></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="translateLink" type="button" title="简繁转换">繁</button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button><button id="go-down" type="button" title="直达底部" onclick="btf.scrollToDest(document.body.scrollHeight, 500)"><i class="fas fa-arrow-down"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.staticfile.org/fancyapps-ui/4.0.27/fancybox.umd.min.js"></script><script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/instant.page/5.1.0/instantpage.min.js" type="module"></script><script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/vanilla-lazyload/17.3.1/lazyload.iife.min.js"></script><div class="js-pjax"></div><canvas id="universe"></canvas><script defer src="/js/universe.js"></script><script async type="text/javascript" src="https://jsd.onmicrosoft.cn/npm/izitoast@1.4.0/dist/js/iziToast.min.js"></script><script>
+    document.body.oncopy = function () {
+        iziToast.info({
+            timeout: 4000, // 关闭弹窗的时间
+          // icon: 'Fontawesome', // 图标类别
+            closeOnEscape: 'true', // 允许使用Esc键关闭弹窗
+            transitionIn: 'bounceInLeft', // 弹窗打开动画
+            transitionOut: 'fadeOutRight', // 弹窗关闭动画
+            displayMode: 'replace', // 替换已经打开的弹窗
+            layout: '2', // Medium模式
+            position: 'topRight', // 弹窗位置
+            //icon: 'fad fa-copy', // 图标类名
+            iconUrl:'https://image-1309791158.cos.ap-guangzhou.myqcloud.com/其他/1122star.svg',
+            backgroundColor: 'rgb(179, 182, 180)', // 弹窗背景色
+            title: '复制成功', // 通知标题
+            message: '键盘敲烂 月薪过万' // 通知消息内容
+        });
+    }
+</script>    
+<script  type="text/javascript" src="https://cdn.staticfile.org/jquery/3.6.3/jquery.min.js"></script><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-heart.min.js" async="async" mobile="true"></script><link rel="stylesheet" href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/aplayer/1.10.1/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/aplayer/1.10.1/APlayer.min.js"></script><script src="https://cdn1.tianli0.top/npm/js-heo@1.0.12/metingjs/Meting.min.js"></script><script src="https://cdn.staticfile.org/pjax/0.2.8/pjax.min.js"></script><script>let pjaxSelectors = ["link[rel=\"canonical\"]","meta[property=\"og:image\"]","meta[property=\"og:title\"]","meta[property=\"og:url\"]","head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.tocScrollFn && window.removeEventListener('scroll', window.tocScrollFn)
+  window.scrollCollect && window.removeEventListener('scroll', scrollCollect)
+
+  document.getElementById('rightside').style.cssText = "opacity: ''; transform: ''"
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+  typeof disqusjs === 'object' && disqusjs.destroy()
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script></div></body></html>
